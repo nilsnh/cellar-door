@@ -3,6 +3,7 @@
 require('dotenv').config()
 const Hapi = require('hapi')
 const uuidv4 = require('uuid/v4')
+const queryString = require('query-string')
 
 const init = async () => {
   const server = Hapi.server({
@@ -81,9 +82,11 @@ const init = async () => {
       if (!request.auth.isAuthenticated) {
         return h.redirect('/login')
       }
-      const { state } = request.payload
+      const { state, redirect_uri } = request.payload
       const code = uuidv4()
-      return h.redirect('http://vg.no?code=some')
+      return h.redirect(
+        `${redirect_uri}?${queryString.stringify({ code, state })}`
+      )
     }
   })
 

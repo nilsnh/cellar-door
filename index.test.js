@@ -48,27 +48,30 @@ test.serial('login should authenticate and redirect', async t => {
   )
 })
 
-test.serial('user should be able to authorize application', async t => {
-  const response = await rp({
-    method: 'POST',
-    uri: 'http://localhost:3000/',
-    formData: { ...application },
-    simple: false,
-    resolveWithFullResponse: true,
-    jar: cookieJar
-  })
-  const { location } = response.toJSON().headers
-  const redirect = location.split('?')[0]
-  const { code, state } = queryString.parse('?' + location.split('?')[1])
-  t.is(
-    redirect,
-    application.redirect_uri,
-    'expected to be redirected correctly'
-  )
-  t.truthy(code, 'expected query param code to be included')
-  t.is(
-    state,
-    application.state,
-    'state should have been included in the redirect'
-  )
-})
+test.serial(
+  'user can authorize and is granted code, and state is passed along.',
+  async t => {
+    const response = await rp({
+      method: 'POST',
+      uri: 'http://localhost:3000/',
+      formData: { ...application },
+      simple: false,
+      resolveWithFullResponse: true,
+      jar: cookieJar
+    })
+    const { location } = response.toJSON().headers
+    const redirect = location.split('?')[0]
+    const { code, state } = queryString.parse('?' + location.split('?')[1])
+    t.is(
+      redirect,
+      application.redirect_uri,
+      'expected to be redirected correctly'
+    )
+    t.truthy(code, 'expected query param code to be included')
+    t.is(
+      state,
+      application.state,
+      'state should have been included in the redirect'
+    )
+  }
+)

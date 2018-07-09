@@ -22,6 +22,7 @@
     "hapi": "^17.5.2",
     "inert": "^5.1.0",
     "query-string": "^6.1.0",
+    "uuid": "^3.3.2",
     "vision": "^5.3.3"
   },
   "engines": {

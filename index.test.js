@@ -29,6 +29,20 @@ test.after(async t => {
   await server.stop()
 })
 
+test('visiting index unauthenticated redirects to /login', async t => {
+  const response = await rp({
+    method: 'GET',
+    uri: 'http://localhost:3000/',
+    simple: false,
+    resolveWithFullResponse: true
+  })
+  t.is(
+    response.toJSON().request.uri.pathname,
+    '/login',
+    'Expected to be redirected to /login'
+  )
+})
+
 test.serial('login should authenticate and redirect', async t => {
   const { username, password } = user
   process.env.USERNAME = username

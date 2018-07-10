@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon -w ./ index.js",
+    "dev": "NODE_ENV=test nodemon -w ./ index.js",
     "test": "ava"
   },
   "author": "Nils Norman Haukås",

@@ -1,7 +1,10 @@
 const microFormat = require('microformat-node')
-const rp = require('require-promise-native')
+const rp = require('request-promise-native')
 
 module.exports = async url => {
+  if (!url) {
+    return null
+  }
   try {
     const html = await rp(url)
     const { items } = microFormat.get({ html })

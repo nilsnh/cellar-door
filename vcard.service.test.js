@@ -12,7 +12,7 @@ const user = {
 // the vcard service will try to call a remote url. We mock that request and
 // return this html instead to be parsed by microformat-node.
 mock(
-  'require-promise-native',
+  'request-promise-native',
   () => `<html>
   <a class="h-card" href="${user.url}">
     <img class="u-photo" src="${
@@ -28,6 +28,6 @@ mock(
 const vcardService = require('./vcard.service')
 
 test('test that we can correctly extract vcard information', async t => {
-  const vcardData = await vcardService()
+  const vcardData = await vcardService('someurl')
   t.deepEqual(vcardData, user, 'was not able to extract correct vcard data')
 })

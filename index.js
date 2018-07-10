@@ -5,6 +5,7 @@ const Hapi = require('hapi')
 const uuidv4 = require('uuid/v4')
 const queryString = require('query-string')
 const Boom = require('boom')
+const vcardService = require('./vcard.service')
 
 const init = async () => {
   const server = Hapi.server({
@@ -57,7 +58,7 @@ const init = async () => {
   await server.register(require('inert'))
   server.views({
     engines: {
-      hbr: require('handlebars')
+      hbs: require('handlebars')
     },
     relativeTo: __dirname,
     path: 'templates'
@@ -74,11 +75,17 @@ const init = async () => {
   server.route({
     method: 'GET',
     path: '/',
-    handler: (request, h) => {
+    handler: async (request, h) => {
       if (!request.auth.isAuthenticated) {
-        return h.redirect('/login')
+        return h.redirect(`/login?${queryString.stringify(request.query)}`)
       }
-      return h.view('authorize', request.query)
+      const { client_id } = request.query
+      console.log('trying to process client_id', client_id)
+      // try to get any vcard data about the service you are trying to login to.
+      const vcard = await vcardService(client_id)
+      const context = { ...request.query, vcard }
+      console.log('context', { context })
+      return h.view('authorize', context)
     }
   })
 
@@ -119,7 +126,7 @@ const init = async () => {
     path: '/authorize',
     handler: async (request, h) => {
       if (!request.auth.isAuthenticated) {
-        return h.redirect('/login')
+        return Boom.unauthorized()
       }
       const { state, redirect_uri, client_id, me } = request.payload
       const code = uuidv4()

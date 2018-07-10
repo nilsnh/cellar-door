@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "An authorization server implementing the IndiAuth federated login protocol.",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon -w ./ index.js",
-    "debug": "node --inspect index.js",
     "test": "ava"
   },
   "author": "Nils Norman Haukås",
@@ -29,7 +29,7 @@
     "node": "10.x"
   },
   "devDependencies": {
-    "ava": "1.0.0-beta.6",
+    "ava": "^0.25.0",
     "nodemon": "^1.17.5",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5"

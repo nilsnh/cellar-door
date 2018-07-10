@@ -1,7 +1,7 @@
 {
-  "name": "selfauth",
+  "name": "cellar-door",
   "version": "1.0.0",
-  "description": "An authorization server implementing the IndiAuth federated login protocol.",
+  "description": "A personal authorization server implementing the IndiAuth federated login protocol.",
   "main": "index.js",
   "private": true,
   "scripts": {

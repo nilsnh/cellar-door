@@ -16,12 +16,10 @@ async function loginHandler(request, h) {
     )
   }
   if (username !== myOnlyUser.username) {
-    console.error('Unknown user', username)
     return Boom.unauthorized()
   }
   const isValid = await bcrypt.compare(password, myOnlyUser.password)
   if (!isValid) {
-    console.error('Invalid password')
     return Boom.unauthorized()
   }
   // we pass everything except the password back to authorization page.

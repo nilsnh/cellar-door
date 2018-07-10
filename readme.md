@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/nilsnh/cellar-door.svg?branch=master)](https://travis-ci.org/nilsnh/cellar-door)
 
+[![dependencies Status](https://david-dm.org/nilsnh/cellar-door/status.svg)](https://david-dm.org/nilsnh/cellar-door)
+
 Login to services using your own website.
 
 Inspired by the [IndieWeb movement](https://indieweb.org) I wanted to build a well-tested personal authorization server that implements the [IndieAuth protocol](https://indieweb.org/IndieAuth).

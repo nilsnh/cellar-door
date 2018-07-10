@@ -4,7 +4,7 @@ require('dotenv').config()
 const Hapi = require('hapi')
 const uuidv4 = require('uuid/v4')
 const queryString = require('query-string')
-const Boom = require('Boom')
+const Boom = require('boom')
 
 const init = async () => {
   const server = Hapi.server({

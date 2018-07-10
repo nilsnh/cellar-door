@@ -58,10 +58,12 @@ const init = async () => {
   await server.register(require('inert'))
   server.views({
     engines: {
-      hbs: require('handlebars')
+      html: require('handlebars')
     },
+    path: 'views',
+    partialsPath: 'views/partials',
     relativeTo: __dirname,
-    path: 'templates'
+    isCached: process.env.NODE_ENV !== 'test'
   })
 
   // setup authentication
@@ -77,7 +79,8 @@ const init = async () => {
     path: '/',
     handler: async (request, h) => {
       if (!request.auth.isAuthenticated) {
-        return h.redirect(`/login?${queryString.stringify(request.query)}`)
+        const queryParams = queryString.stringify(request.query)
+        return h.redirect(queryParams ? `/login?${queryParams}` : '/login')
       }
       const { client_id } = request.query
       console.log('trying to process client_id', client_id)
@@ -149,6 +152,16 @@ const init = async () => {
     path: '/login',
     options: { auth: false },
     handler: require('./login.handler')
+  })
+
+  server.route({
+    method: 'GET',
+    path: '/public/{param*}',
+    handler: {
+      directory: {
+        path: 'static'
+      }
+    }
   })
 
   await server.start()

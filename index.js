@@ -91,7 +91,7 @@ const init = async () => {
       const {
         code,
         client_id: inboundClientId,
-        redirect_uri: inboudRedirectUri
+        redirect_uri: inboundRedirectUri
       } = request.payload
       if (!code) {
         return Boom.badRequest('Missing authorization code')
@@ -102,7 +102,10 @@ const init = async () => {
         return Boom.unauthorized()
       }
       const { client_id, redirect_uri, me } = data
-      if (client_id !== inboundClientId || redirect_uri !== inboudRedirectUri) {
+      if (
+        client_id !== inboundClientId ||
+        redirect_uri !== inboundRedirectUri
+      ) {
         return Boom.unauthorized()
       }
       // remove code, to ensure that a authorization code can only be used once

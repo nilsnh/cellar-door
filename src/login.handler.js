@@ -20,7 +20,7 @@ async function loginHandler(request, h) {
       .redirect(
         request.server.methods.createStatefulUrl({
           url: '/login',
-          state: request.query
+          state: request.payload
         })
       )
       .state('message', 'Login failed, username or password was wrong.')
@@ -29,7 +29,7 @@ async function loginHandler(request, h) {
     .redirect(
       request.server.methods.createStatefulUrl({
         url: '/',
-        state: request.query
+        state: request.payload
       })
     )
     .state('sid-indieauth', username)

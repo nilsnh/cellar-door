@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/public/fonts/Josefin_Sans/JosefinSans-Regular.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/public/fonts/Pacifico/Pacifico-Regular.ttf') format('truetype');
+}

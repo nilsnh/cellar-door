@@ -8,7 +8,7 @@ const vcardService = require('./src/vcard.service')
 
 const init = async () => {
   const server = Hapi.server({
-    port: 3000,
+    port: process.env.PORT || 3000,
     host: 'localhost',
     state: {
       // cookie configuration
@@ -157,6 +157,13 @@ const init = async () => {
       h.unstate('message')
       return h.view('login', { ...request.query, ...{ message } })
     }
+  })
+
+  server.route({
+    method: 'GET',
+    path: '/logout',
+    options: { auth: false },
+    handler: (request, h) => h.redirect('/').unstate('sid-indieauth')
   })
 
   server.route({

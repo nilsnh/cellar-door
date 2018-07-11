@@ -1,0 +1,18 @@
+.c-login-form {
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+.c-login-form > * {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.c-login-form input,
+.c-login-form label {
+  width: 100%;
+}
+
+.c-login-form input {
+  margin-bottom: 28px;
+}

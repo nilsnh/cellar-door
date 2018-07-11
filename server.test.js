@@ -21,6 +21,7 @@ let server = null
 let cookieJar = null
 
 test.before(async t => {
+  process.env.PORT = 4000
   server = await initServer()
   cookieJar = rp.jar()
 })
@@ -32,7 +33,7 @@ test.after(async t => {
 test('visiting index unauthenticated redirects to /login', async t => {
   const response = await rp({
     method: 'GET',
-    uri: 'http://localhost:3000/',
+    uri: 'http://localhost:4000/',
     simple: false,
     resolveWithFullResponse: true
   })
@@ -49,7 +50,7 @@ test.serial('login should authenticate and redirect', async t => {
   process.env.USER_PASSWORD = await bcrypt.hash(password, 1)
   const response = await rp({
     method: 'POST',
-    uri: 'http://localhost:3000/login',
+    uri: 'http://localhost:4000/login',
     formData: { username, password },
     simple: false,
     resolveWithFullResponse: true,
@@ -67,7 +68,7 @@ test.serial(
   async t => {
     const response = await rp({
       method: 'POST',
-      uri: 'http://localhost:3000/authorize',
+      uri: 'http://localhost:4000/authorize',
       formData: { ...loginTarget },
       simple: false,
       resolveWithFullResponse: true,
@@ -94,7 +95,7 @@ test.serial('user can exchange authorization code for token.', async t => {
   // get code
   const response = await rp({
     method: 'POST',
-    uri: 'http://localhost:3000/authorize',
+    uri: 'http://localhost:4000/authorize',
     formData: { ...loginTarget },
     simple: false,
     resolveWithFullResponse: true,
@@ -106,7 +107,7 @@ test.serial('user can exchange authorization code for token.', async t => {
   // exchange code
   const secondResponse = await rp({
     method: 'POST',
-    uri: 'http://localhost:3000/',
+    uri: 'http://localhost:4000/',
     formData: { code, redirect_uri, client_id },
     json: true,
     jar: cookieJar

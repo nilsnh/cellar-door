@@ -18,6 +18,10 @@ h3 {
   color: #3d2f2c;
 }
 
+a:visited {
+  color: blue;
+}
+
 input {
   background-color: #ffffff8f;
   border: 0;

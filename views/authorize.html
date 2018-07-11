@@ -1,3 +1,32 @@
 {{#> layout }}
-<p>Message: You've been logged in!</p>
+<div class="c-wrapper">
+  <form class="c-form" action="/login" method="post">
+    <h1 class="c-display u-margin-bottom">Authorize site</h1>
+      {{#if client_id}}
+        <p class="c-notice">
+        {{ client_id }}
+        </p>
+        <p class="u-margin-bottom">Press authorize to grant that site a code that
+          it can exchange for a token to prove your identity.</p>
+        <input type="hidden" name="me" value="{{me}}">
+        <input type="hidden" name="client_id" value="{{client_id}}">
+        <input type="hidden" name="redirect_uri" value="{{redirect_uri}}">
+        <input type="hidden" name="state" value="{{state}}">
+        <input type="hidden" name="response_type" value="{{response_type}}">
+        <div class="c-authorize-buttons u-margin-bottom">
+          <a href="/logout">Logout</a>
+          <button type="submit">Authorize site</button>
+        </div>
+      {{else}}
+        <p class="c-notice u-margin-bottom"> Found no "client_id" in the url. You should head back to
+        the site you want to login to and try again. </p>
+        <div class="u-right">
+        <a href="/logout">Logout</a>
+        </div>
+      {{/if}}
+    {{#if message}}
+      <p class="c-notice">Woops! Your username or password was wrong.</p>
+    {{/if}}
+  </form>
+</div>
 {{/layout}}

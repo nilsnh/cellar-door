@@ -1,18 +1,18 @@
-.c-login-form {
+.c-form {
   max-width: 250px;
   margin: 0 auto;
 }
 
-.c-login-form > * {
+.c-form > * {
   display: block;
   margin-bottom: 5px;
 }
 
-.c-login-form input,
-.c-login-form label {
+.c-form input,
+.c-form label {
   width: 100%;
 }
 
-.c-login-form input {
+.c-form input {
   margin-bottom: 28px;
 }

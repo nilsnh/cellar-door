@@ -1,6 +1,6 @@
 @import 'fonts.css';
 @import 'elements.css';
-@import 'login-form.component.css';
+@import 'form.component.css';
 
 .c-display {
   font-weight: 400;
@@ -15,6 +15,12 @@
   margin: 0;
   padding: 24px;
   background-color: #ffffff8f;
+}
+
+.c-authorize-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .u-right {

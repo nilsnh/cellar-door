@@ -11,6 +11,8 @@ const init = async () => {
     port: process.env.PORT || 3000,
     host: 'localhost',
     state: {
+      // let cookies live twelve hours
+      ttl: 1000 * 60 * 60 * 12,
       // cookie configuration
       // expires on closing browser
       strictHeader: true,

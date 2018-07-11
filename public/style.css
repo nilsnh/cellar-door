@@ -61,12 +61,10 @@ h3 {
   margin-bottom: 28px;
 }
 
-.c-login-form button {
-  float: right;
-}
-
-.c-note {
-  margin-bottom: 24px;
+.c-notice {
+  margin: 0;
+  padding: 24px;
+  background-color: #ffffff8f;
 }
 
 input {
@@ -105,4 +103,13 @@ button:focus {
   border: 2px dotted #3d2f2c;
   background-color: #ffab8a;
   outline: 0;
+}
+
+.u-right {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.u-margin-bottom {
+  margin-bottom: 24px;
 }

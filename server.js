@@ -3,7 +3,6 @@
 require('dotenv').config()
 const Hapi = require('hapi')
 const uuidv4 = require('uuid/v4')
-const queryString = require('query-string')
 const Boom = require('boom')
 const vcardService = require('./src/vcard.service')
 
@@ -29,6 +28,8 @@ const init = async () => {
     segment: 'tokens',
     expiresIn: 60 * 60 * 3 // three hours
   })
+
+  server.method('createStatefulUrl', require('./src/url.service'))
 
   // setup logging
   await server.register({
@@ -79,8 +80,12 @@ const init = async () => {
     path: '/',
     handler: async (request, h) => {
       if (!request.auth.isAuthenticated) {
-        const queryParams = queryString.stringify(request.query)
-        return h.redirect(queryParams ? `/login?${queryParams}` : '/login')
+        return h.redirect(
+          request.server.methods.createStatefulUrl({
+            url: '/login',
+            state: request.query
+          })
+        )
       }
       const { client_id } = request.query
       console.log('trying to process client_id', client_id)
@@ -135,7 +140,10 @@ const init = async () => {
       const code = uuidv4()
       await server.app.tokenStore.set(code, { redirect_uri, client_id, me })
       return h.redirect(
-        `${redirect_uri}?${queryString.stringify({ code, state })}`
+        request.server.methods.createStatefulUrl({
+          url: redirect_uri,
+          state: { code, state }
+        })
       )
     }
   })
@@ -144,7 +152,11 @@ const init = async () => {
     method: 'GET',
     path: '/login',
     options: { auth: false },
-    handler: (request, h) => h.view('login', request.query)
+    handler: (request, h) => {
+      const { message } = request.state
+      h.unstate('message')
+      return h.view('login', { ...request.query, ...{ message } })
+    }
   })
 
   server.route({

@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt')
 const Boom = require('boom')
-const queryString = require('query-string')
 
 const getUser = () => ({
   username: process.env.USERNAME,
@@ -15,17 +14,24 @@ async function loginHandler(request, h) {
       'Username and password was not provided when logging in.'
     )
   }
-  if (username !== myOnlyUser.username) {
-    return Boom.unauthorized()
-  }
   const isValid = await bcrypt.compare(password, myOnlyUser.password)
-  if (!isValid) {
-    return Boom.unauthorized()
+  if (username !== myOnlyUser.username || !isValid) {
+    return h
+      .redirect(
+        request.server.methods.createStatefulUrl({
+          url: '/login',
+          state: request.query
+        })
+      )
+      .state('message', 'Login failed, username or password was wrong.')
   }
-  // we pass everything except the password back to authorization page.
-  delete request.payload.password
   return h
-    .redirect(`/?${queryString.stringify(request.payload)}`)
+    .redirect(
+      request.server.methods.createStatefulUrl({
+        url: '/',
+        state: request.query
+      })
+    )
     .state('sid-indieauth', username)
 }
 

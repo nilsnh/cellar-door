@@ -15,14 +15,13 @@ const init = async () => {
       // cookie configuration
       // expires on closing browser
       strictHeader: true,
-      ignoreErrors: false,
+      ignoreErrors: true,
       // cookies should only be set on https connections, except in testing.
       isSecure: process.env.NODE_ENV !== 'test',
       isHttpOnly: true,
       isSameSite: 'Strict',
       encoding: 'iron',
-      password: process.env.IRON_SECRET,
-      clearInvalid: true
+      password: process.env.IRON_SECRET
     }
   })
 

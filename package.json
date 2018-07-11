@@ -2,12 +2,13 @@
   "name": "cellar-door",
   "version": "1.0.0",
   "description": "A personal authorization server implementing the IndiAuth federated login protocol.",
-  "main": "index.js",
+  "main": "server.js",
   "private": true,
   "scripts": {
-    "start": "node index.js",
-    "dev": "NODE_ENV=test nodemon -w ./ index.js",
-    "test": "ava"
+    "start": "node server.js",
+    "dev": "NODE_ENV=test nodemon -w ./ server.js",
+    "test": "ava",
+    "browser-sync": "browser-sync start --proxy localhost:3000 --port 3002 --files ./ --ignore node_modules"
   },
   "author": "Nils Norman Haukås",
   "license": "AGPL-3.0-or-later",
@@ -34,6 +35,7 @@
   },
   "devDependencies": {
     "ava": "^0.25.0",
+    "browser-sync": "^2.24.5",
     "nodemon": "^1.17.5"
   }
 }

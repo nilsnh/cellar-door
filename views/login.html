@@ -1,7 +1,7 @@
 {{#> layout }}
 <div class="c-wrapper">
   <form class="c-login-form" action="/login" method="post">
-    <h1>Welcome home</h1>
+    <h1 class="c-display">Welcome home</h1>
     <p class="c-note">Please login to your personal authorization server.</p>
     <input type="hidden" name="me" value="{{me}}">
     <input type="hidden" name="client_id" value="{{client_id}}">
@@ -12,7 +12,9 @@
     <input type="text" name="username" value="">
     <label for="password">Password:</label>
     <input type="password" name="password" value="">
+    <div>
     <button type="submit">Login</button>
+    </div>
   </form>
 </div>
 {{/layout}}

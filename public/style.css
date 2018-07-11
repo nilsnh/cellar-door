@@ -13,13 +13,27 @@
   src: url('/public/fonts/Pacifico/Pacifico-Regular.ttf') format('truetype');
 }
 
+/* colors sourced from here
+   https://www.colourlovers.com/palette/4582695/Picky_Girl */
 html {
   font-family: 'Josefin Sans', fantasy, sans-serif;
+  background-color: #ffecca;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 h1,
 h2,
 h3 {
+  color: #3d2f2c;
+}
+
+.c-display {
   font-weight: 400;
   font-family: 'Pacifico', fantasy, cursive;
 }
@@ -35,7 +49,7 @@ h3 {
 
 .c-login-form > * {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .c-login-form input,
@@ -43,10 +57,52 @@ h3 {
   width: 100%;
 }
 
-.c-login-form > button {
+.c-login-form input {
+  margin-bottom: 28px;
+}
+
+.c-login-form button {
   float: right;
 }
 
 .c-note {
   margin-bottom: 24px;
+}
+
+input {
+  background-color: #ffffff8f;
+  border: 0;
+  border-bottom: 1px solid #3d2f2c;
+  font-style: italic;
+  padding: 10px 5px;
+  margin-bottom: 24px;
+}
+
+input:focus {
+  outline: 0;
+  background-color: #fff;
+  padding-bottom: 9px;
+  border-bottom: 2px dotted #3d2f2c;
+}
+
+input:hover {
+  background-color: #fff;
+}
+
+button {
+  padding: 10px;
+  border: 1px solid #3d2f2c;
+  background-color: #ffffff8f;
+}
+
+button:hover {
+  padding: 10px;
+  background-color: #ffab8a;
+}
+
+button:focus {
+  padding: 9px;
+  border: 2px dotted #3d2f2c;
+  background-color: #ffab8a;
+  outline: 0;
 }

@@ -159,7 +159,7 @@ const init = async () => {
     path: '/public/{param*}',
     handler: {
       directory: {
-        path: 'static'
+        path: 'public'
       }
     }
   })

@@ -1,0 +1,52 @@
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/public/fonts/Josefin_Sans/JosefinSans-Regular.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/public/fonts/Pacifico/Pacifico-Regular.ttf') format('truetype');
+}
+
+html {
+  font-family: 'Josefin Sans', fantasy, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 400;
+  font-family: 'Pacifico', fantasy, cursive;
+}
+
+.c-wrapper {
+  padding-top: 24px;
+}
+
+.c-login-form {
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+.c-login-form > * {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.c-login-form input,
+.c-login-form label {
+  width: 100%;
+}
+
+.c-login-form > button {
+  float: right;
+}
+
+.c-note {
+  margin-bottom: 24px;
+}

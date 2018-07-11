@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import test from 'ava'
-import initServer from './index'
+import initServer from './server'
 import rp from 'request-promise-native'
 import queryString from 'query-string'
 

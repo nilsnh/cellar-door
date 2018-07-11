@@ -5,17 +5,18 @@ const Hapi = require('hapi')
 const uuidv4 = require('uuid/v4')
 const queryString = require('query-string')
 const Boom = require('boom')
-const vcardService = require('./vcard.service')
+const vcardService = require('./src/vcard.service')
 
 const init = async () => {
   const server = Hapi.server({
     port: 3000,
     host: 'localhost',
     state: {
-      //cookie configuration
-      //expires on closing browser
+      // cookie configuration
+      // expires on closing browser
       strictHeader: true,
       ignoreErrors: false,
+      // cookies should only be set on https connections, except in testing.
       isSecure: process.env.NODE_ENV !== 'test',
       isHttpOnly: true,
       isSameSite: 'Strict',
@@ -67,7 +68,7 @@ const init = async () => {
   })
 
   // setup authentication
-  server.auth.scheme('cookie-scheme', require('./authentication.scheme'))
+  server.auth.scheme('cookie-scheme', require('./src/authentication.scheme'))
   server.auth.strategy('cookie-strategy', 'cookie-scheme')
   server.auth.default({
     strategy: 'cookie-strategy',
@@ -151,7 +152,7 @@ const init = async () => {
     method: 'POST',
     path: '/login',
     options: { auth: false },
-    handler: require('./login.handler')
+    handler: require('./src/login.handler')
   })
 
   server.route({
@@ -174,6 +175,7 @@ process.on('unhandledRejection', err => {
   process.exit(1)
 })
 
+// only start server if file is called directly
 if (require.main === module) {
   init()
 }

@@ -56,6 +56,8 @@ const init = async () => {
     }
   })
 
+  await server.register(require('hapi-require-https'))
+
   // setup html templating
   await server.register(require('vision'))
   await server.register(require('inert'))

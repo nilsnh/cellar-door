@@ -77,6 +77,13 @@ const init = async () => {
     method: 'GET',
     path: '/',
     handler: async (request, h) => {
+      if (
+        !process.env.USERNAME ||
+        !process.env.USER_PASSWORD ||
+        !process.env.IRON_SECRET
+      ) {
+        return h.view('setup')
+      }
       if (!request.auth.isAuthenticated) {
         return h.redirect(
           request.server.methods.createStatefulUrl({
@@ -120,6 +127,13 @@ const init = async () => {
     path: '/login',
     options: { auth: false },
     handler: (request, h) => {
+      if (
+        !process.env.USERNAME ||
+        !process.env.USER_PASSWORD ||
+        !process.env.IRON_SECRET
+      ) {
+        return h.redirect('/')
+      }
       const { message } = request.state
       h.unstate('message')
       return h.view('login', { ...request.query, ...{ message } })

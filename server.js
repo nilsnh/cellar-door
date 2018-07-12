@@ -61,7 +61,7 @@ const init = async () => {
   await server.register(require('inert'))
   server.views({
     engines: {
-      html: require('handlebars')
+      hbs: require('handlebars')
     },
     path: 'views',
     partialsPath: 'views/partials',

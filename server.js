@@ -127,6 +127,8 @@ const init = async () => {
         !process.env.USER_PASSWORD ||
         !process.env.IRON_SECRET
       ) {
+        // app is not configured so we redirect back to frontpage which will
+        // show a getting started screen.
         return h.redirect('/')
       }
       const { message } = request.state

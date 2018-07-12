@@ -13,7 +13,7 @@ Features:
 
 ## Deploy your own authorization server using glitch.com
 
-1.  Remix my Glitch app here: https://glitch.com/~cellar-door 
+1.  [Remix my Glitch app](https://bit.ly/2zvqIvo).
 2.  Complete the .env file configuration.
 3.  Add `<link rel="authorization_endpoint" href="https://your-glitch-app.com">` within the `<head></head>` portion of your personal site's html. This enables sites to discover the authorization endpoint.
 4.  Test logging into a site, for example [indielogin.com](https://indielogin.com)

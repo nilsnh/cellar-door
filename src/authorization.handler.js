@@ -1,5 +1,6 @@
 const Boom = require('boom')
 const uuidv4 = require('uuid/v4')
+const hcardService = require('./hcard.service')
 
 const showAppToAuthorize = async (request, h) => {
   if (
@@ -22,7 +23,7 @@ const showAppToAuthorize = async (request, h) => {
     return h.view('ready-to-authorize')
   }
   // try to get any hcard data about the service you are trying to login to.
-  const hcard = await require('./src/hcard.service')(client_id)
+  const hcard = await hcardService(client_id)
   return h.view('authorize', { ...request.query, hcard })
 }
 

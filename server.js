@@ -2,9 +2,6 @@
 
 require('dotenv').config()
 const Hapi = require('hapi')
-const uuidv4 = require('uuid/v4')
-const Boom = require('boom')
-const vcardService = require('./src/vcard.service')
 
 const init = async () => {
   const server = Hapi.server({
@@ -13,8 +10,6 @@ const init = async () => {
     state: {
       // let cookies live twelve hours
       ttl: 1000 * 60 * 60 * 12,
-      // cookie configuration
-      // expires on closing browser
       strictHeader: true,
       ignoreErrors: true,
       // cookies should only be set on https connections, except in testing.
@@ -28,7 +23,7 @@ const init = async () => {
 
   server.app.tokenStore = server.cache({
     segment: 'tokens',
-    expiresIn: 60 * 60 * 3 // three hours
+    expiresIn: 1000 * 60 * 60 * 3 // three hours
   })
 
   server.method('createStatefulUrl', require('./src/url.service'))
@@ -56,7 +51,7 @@ const init = async () => {
     }
   })
 
-  // setup html templating
+  // Setup html templating
   await server.register(require('vision'))
   await server.register(require('inert'))
   server.views({
@@ -69,7 +64,8 @@ const init = async () => {
     isCached: process.env.NODE_ENV !== 'test'
   })
 
-  // setup authentication
+  // Setup authentication. Please note: You still need to add an if check
+  // on the routes you want to protect.
   server.auth.scheme('cookie-scheme', require('./src/authentication.scheme'))
   server.auth.strategy('cookie-strategy', 'cookie-scheme')
   server.auth.default({
@@ -92,6 +88,7 @@ const init = async () => {
       const { client_id } = request.query
       console.log('trying to process client_id', client_id)
       // try to get any vcard data about the service you are trying to login to.
+      const vcardService = require('./src/vcard.service')
       const vcard = await vcardService(client_id)
       const context = { ...request.query, vcard }
       console.log('context', { context })
@@ -104,50 +101,18 @@ const init = async () => {
     method: 'POST',
     path: '/',
     options: { auth: false },
-    handler: async (request, h) => {
-      const {
-        code,
-        client_id: inboundClientId,
-        redirect_uri: inboundRedirectUri
-      } = request.payload
-      if (!code) {
-        return Boom.badRequest('Missing authorization code')
-      }
-      const data = await server.app.tokenStore.get(code)
-      if (!data) {
-        // if we found nothing stored, we deny the exchange
-        return Boom.unauthorized()
-      }
-      const { client_id, redirect_uri, me } = data
-      if (
-        client_id !== inboundClientId ||
-        redirect_uri !== inboundRedirectUri
-      ) {
-        return Boom.unauthorized()
-      }
-      // remove code, to ensure that a authorization code can only be used once
-      await server.app.tokenStore.drop(code)
-      return { me }
-    }
+    handler: require('./src/authorization.handler')
+      .exchangeAuthorizationCodeForToken
   })
 
+  // user posts data to this endpoint to confirm that they want to give
+  // an authorization code to the site they want to login to. Code is
+  // generated, stored and given to the external site through redirect.
   server.route({
     method: 'POST',
     path: '/authorize',
-    handler: async (request, h) => {
-      if (!request.auth.isAuthenticated) {
-        return Boom.unauthorized()
-      }
-      const { state, redirect_uri, client_id, me } = request.payload
-      const code = uuidv4()
-      await server.app.tokenStore.set(code, { redirect_uri, client_id, me })
-      return h.redirect(
-        request.server.methods.createStatefulUrl({
-          url: redirect_uri,
-          state: { code, state }
-        })
-      )
-    }
+    handler: require('./src/authorization.handler')
+      .authorizeCreationOfAuthorizationCode
   })
 
   server.route({

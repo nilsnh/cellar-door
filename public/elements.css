@@ -39,6 +39,7 @@ input {
   font-style: italic;
   padding: 10px 5px;
   margin-bottom: 24px;
+  border-radius: 0;
 }
 
 input:focus {

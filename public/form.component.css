@@ -19,6 +19,7 @@
 
 @media (min-width: 500px) {
   .c-form {
+    padding: 0;
     max-width: 250px;
     margin: 0 auto;
   }

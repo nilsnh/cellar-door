@@ -1,6 +1,7 @@
 @import 'fonts.css';
 @import 'elements.css';
 @import 'form.component.css';
+@import 'vcard.component.css';
 @import 'footer.component.css';
 
 .c-display {
@@ -39,4 +40,16 @@
 
 .u-bg-dark {
   background-color: #3d2f2c;
+}
+
+.u-clearfix:before,
+.u-clearfix:after {
+  content: '';
+  display: table;
+}
+.u-clearfix:after {
+  clear: both;
+}
+.u-clearfix {
+  zoom: 1; /* For IE 6/7 (trigger hasLayout) */
 }

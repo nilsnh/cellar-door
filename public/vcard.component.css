@@ -1,0 +1,14 @@
+.c-vcard {
+}
+
+.c-vcard__photo {
+  float: left;
+  width: 70px;
+  height: 70px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.c-vcard__description {
+  padding-top: 3px;
+}

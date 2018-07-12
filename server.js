@@ -93,13 +93,12 @@ const init = async () => {
         )
       }
       const { client_id } = request.query
-      console.log('trying to process client_id', client_id)
+      if (!client_id) {
+        return h.view('ready-to-authorize')
+      }
       // try to get any vcard data about the service you are trying to login to.
-      const vcardService = require('./src/vcard.service')
-      const vcard = await vcardService(client_id)
-      const context = { ...request.query, vcard }
-      console.log('context', { context })
-      return h.view('authorize', context)
+      const vcard = await require('./src/vcard.service')(client_id)
+      return h.view('authorize', { ...request.query, vcard })
     }
   })
 

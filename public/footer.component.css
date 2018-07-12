@@ -1,0 +1,24 @@
+.c-footer {
+  width: 100%;
+  color: #ffffff8f;
+}
+
+.c-footer__content {
+  padding: 0 24px;
+  margin: 0 auto;
+}
+
+.c-footer__content a {
+  color: #ffffff8f;
+}
+
+.c-footer__content a:hover {
+  color: #fff;
+}
+
+@media (min-width: 500px) {
+  .c-footer {
+    position: absolute;
+    bottom: 0;
+  }
+}

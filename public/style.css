@@ -1,6 +1,7 @@
 @import 'fonts.css';
 @import 'elements.css';
 @import 'form.component.css';
+@import 'footer.component.css';
 
 .c-display {
   font-weight: 400;
@@ -30,4 +31,12 @@
 
 .u-margin-bottom {
   margin-bottom: 24px;
+}
+
+.u-bg-light {
+  background-color: #ffecca;
+}
+
+.u-bg-dark {
+  background-color: #3d2f2c;
 }

@@ -1,6 +1,7 @@
 .c-form {
   max-width: 250px;
-  margin: 0 auto;
+  margin: 0 24px;
+  padding-bottom: 24px;
 }
 
 .c-form > * {
@@ -15,4 +16,10 @@
 
 .c-form input {
   margin-bottom: 28px;
+}
+
+@media (min-width: 500px) {
+  .c-form {
+    margin: 0 auto;
+  }
 }

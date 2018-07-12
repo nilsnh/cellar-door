@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="/public/style.css">
   </head>
   <body>
-    {{> @partial-block }}
+    <main class="u-bg-light">{{> @partial-block }}</main>
+    <footer class="c-footer u-bg-dark">
+      <div class="c-footer__content"><p>
+      <a href="https://github.com/nilsnh/cellar-door">Cellar Door</a>,
+      an open-source implementation of the <a href="https://indieweb.org/IndieAuth">IndiAuth</a>
+      federated login protocol by <a href="https://nilsnh.no">Nils Norman Haukås</a>.
+      </p>
+      </div>
+    </footer>
   </body>
 </html>

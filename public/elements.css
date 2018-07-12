@@ -2,8 +2,14 @@
    https://www.colourlovers.com/palette/4582695/Picky_Girl */
 html {
   font-family: 'Josefin Sans', fantasy, sans-serif;
-  background-color: #ffecca;
+  background-color: #3d2f2c;
   box-sizing: border-box;
+}
+
+@media (min-width: 500px) {
+  html {
+    background-color: #ffecca;
+  }
 }
 
 *,
@@ -20,6 +26,10 @@ h3 {
 
 a:visited {
   color: blue;
+}
+
+p {
+  line-height: 1.6;
 }
 
 input {

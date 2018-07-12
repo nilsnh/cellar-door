@@ -11,7 +11,7 @@
     "test-coverage": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov",
     "browser-sync": "browser-sync start --proxy localhost:3000 --port 3002 --files ./ --ignore node_modules",
     "build-favicon": "icon-gen -i node_modules/octicons/build/svg/shield.svg -n ico=favicon -m ico -o ./public -r",
-    "post-install": "npm run build-favicon"
+    "postinstall": "npm run build-favicon"
   },
   "author": "Nils Norman Haukås",
   "license": "AGPL-3.0-or-later",

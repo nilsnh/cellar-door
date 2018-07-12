@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/public/normalize.css">
     <link rel="stylesheet" href="/public/style.css">
     <script>
-      // hack to redirect to https.
-      if (location.protocol != 'https:') {
+      // hack to redirect to https for everything but localhost
+      if (location.host.indexOf('localhost') === -1 && location.protocol != 'https:') {
        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
       }
     </script>

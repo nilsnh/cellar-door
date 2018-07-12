@@ -16,7 +16,7 @@ Inspired by the [IndieWeb movement](https://indieweb.org) I wanted to build a we
 4.  Test logging into a site, for examples:
     - [pin13.net](https://pin13.net/login/)
     - [Telegraph](https://telegraph.p3k.io/login)
-    - [The IndieWeb wiki](https://indieweb.org/Special:UserLogin)
+    - [The IndieWeb wiki](https://sso.indieweb.org/login?url=https%3A%2F%2Findieweb.org%2FSpecial%253AUserLogin)
 
 ## Development
 

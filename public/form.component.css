@@ -1,5 +1,5 @@
 .c-form {
-  max-width: 250px;
+  width: 100%;
   margin: 0 24px;
   padding-bottom: 24px;
 }
@@ -20,6 +20,7 @@
 
 @media (min-width: 500px) {
   .c-form {
+    max-width: 250px;
     margin: 0 auto;
   }
 }

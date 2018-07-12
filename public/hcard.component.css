@@ -1,7 +1,7 @@
-.c-vcard {
+.c-hcard {
 }
 
-.c-vcard__photo {
+.c-hcard__photo {
   float: left;
   width: 70px;
   height: 70px;
@@ -9,6 +9,6 @@
   margin-bottom: 5px;
 }
 
-.c-vcard__description {
+.c-hcard__description {
   padding-top: 3px;
 }

@@ -8,15 +8,15 @@ module.exports = async url => {
   try {
     const html = await rp(url)
     const { items } = microFormat.get({ html })
-    const vcard = items.find(({ type = [] }) =>
+    const hcard = items.find(({ type = [] }) =>
       type.find(typeName => typeName === 'h-card')
     )
-    if (!vcard) {
+    if (!hcard) {
       return null
     }
-    return unwrapProperties(vcard.properties)
+    return unwrapProperties(hcard.properties)
   } catch (e) {
-    console.error('Failed to fetch vcard data', e)
+    console.error('Failed to fetch hcard data', e)
     return null
   }
 }

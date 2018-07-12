@@ -4,14 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cellar Door</title>
+    <meta name="description" content="A personal authorization server implementing the IndiAuth federated login protocol.">
     <link rel="stylesheet" href="/public/normalize.css">
     <link rel="stylesheet" href="/public/style.css">
-    <script>
-      // hack to redirect to https for everything but localhost
-      if (location.host.indexOf('localhost') === -1 && location.protocol != 'https:') {
-       location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-      }
-    </script>
+    <script src="/public/script.js" charset="utf-8"></script>
   </head>
   <body>
     <main class="u-bg-light">{{> @partial-block }}</main>

@@ -3,14 +3,14 @@
   <form class="c-form" action="/authorize" method="post">
     <h1 class="c-display u-margin-bottom">Authorize site</h1>
     <div class="c-notice">
-      {{#if vcard}}
-        <div class="c-vcard u-clearfix">
-          {{#if vcard.photo}}
-            <img class="c-vcard__photo" src="{{vcard.photo}}" alt="">
+      {{#if hcard}}
+        <div class="c-hcard u-clearfix">
+          {{#if hcard.photo}}
+            <img class="c-hcard__photo" src="{{hcard.photo}}" alt="">
           {{/if}}
-          <div class="c-vcard__description">
-            {{#if vcard.name}}<div><a href="{{ client_id }}">{{vcard.name}}</a></div>{{/if}}
-            {{#if vcard.note}}{{vcard.note}}{{/if}}
+          <div class="c-hcard__description">
+            {{#if hcard.name}}<div><a href="{{ client_id }}">{{hcard.name}}</a></div>{{/if}}
+            {{#if hcard.note}}{{hcard.note}}{{/if}}
           </div>
         </div>
       {{else}}

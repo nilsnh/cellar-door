@@ -9,7 +9,7 @@ const user = {
   url: 'http://localhost:1313/'
 }
 
-// the vcard service will try to call a remote url. We mock that request and
+// the hcard service will try to call a remote url. We mock that request and
 // return this html instead to be parsed by microformat-node.
 mock(
   'request-promise-native',
@@ -25,9 +25,9 @@ mock(
 </html>`
 )
 
-const vcardService = require('./vcard.service')
+const hcardService = require('./hcard.service')
 
-test('test that we can correctly extract vcard information', async t => {
-  const vcardData = await vcardService('someurl')
-  t.deepEqual(vcardData, user, 'was not able to extract correct vcard data')
+test('test that we can correctly extract hcard information', async t => {
+  const hcardData = await hcardService('someurl')
+  t.deepEqual(hcardData, user, 'was not able to extract correct hcard data')
 })

@@ -1,7 +1,7 @@
 @import 'fonts.css';
 @import 'elements.css';
 @import 'form.component.css';
-@import 'vcard.component.css';
+@import 'hcard.component.css';
 @import 'footer.component.css';
 
 .c-display {

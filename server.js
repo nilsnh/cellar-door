@@ -73,6 +73,17 @@ const init = async () => {
     mode: 'try'
   })
 
+  // Decorate all responses with additional security headers. Hardens usage of
+  // javascript and iframes.
+  server.ext('onPreResponse', (request, h) => {
+    request.response.header('X-FRAME-OPTIONS', 'deny')
+    if (process.env.NODE_ENV !== 'test') {
+      // CSP breaks browser-sync, so we ignore it for development
+      request.response.header('Content-Security-Policy', "default-src 'self'")
+    }
+    return h.continue
+  })
+
   server.route({
     method: 'GET',
     path: '/',
@@ -96,9 +107,9 @@ const init = async () => {
       if (!client_id) {
         return h.view('ready-to-authorize')
       }
-      // try to get any vcard data about the service you are trying to login to.
-      const vcard = await require('./src/vcard.service')(client_id)
-      return h.view('authorize', { ...request.query, vcard })
+      // try to get any hcard data about the service you are trying to login to.
+      const hcard = await require('./src/hcard.service')(client_id)
+      return h.view('authorize', { ...request.query, hcard })
     }
   })
 

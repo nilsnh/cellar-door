@@ -8,15 +8,17 @@ Login to services using your own website.
 
 Inspired by the [IndieWeb movement](https://indieweb.org) I wanted to build a well-tested personal authorization server that implements the [IndieAuth protocol](https://indieweb.org/IndieAuth).
 
+Features:
+
+- IndieAuth support.
+- [h-card](https://indieweb.org/h-card) support.
+
 ## Deploy your own authorization server using glitch.com
 
 1.  Remix my Glitch app.
 2.  Complete the .env file configuration.
-3.  Add `<link rel="authorization_endpoint" href="https://your-glitch-app.com">` within the `<head></head>` portion of your site's html.
-4.  Test logging into a site, for examples:
-    - [pin13.net](https://pin13.net/login/)
-    - [Telegraph](https://telegraph.p3k.io/login)
-    - [The IndieWeb wiki](https://sso.indieweb.org/login?url=https%3A%2F%2Findieweb.org%2FSpecial%253AUserLogin)
+3.  Add `<link rel="authorization_endpoint" href="https://your-glitch-app.com">` within the `<head></head>` portion of your personal site's html. This enables sites to discover the authorization endpoint.
+4.  Test logging into a site, for example [indielogin.com](https://indielogin.com)
 
 ## Development
 

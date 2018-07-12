@@ -1,14 +1,14 @@
 /* colors sourced from here
    https://www.colourlovers.com/palette/4582695/Picky_Girl */
 html {
-  font-family: 'Josefin Sans', fantasy, sans-serif;
-  background-color: #3d2f2c;
+  font-family: var(--main-font);
+  background-color: var(--dusk);
   box-sizing: border-box;
 }
 
 @media (min-width: 500px) {
   html {
-    background-color: #ffecca;
+    background-color: var(--dawn);
   }
 }
 
@@ -21,7 +21,7 @@ html {
 h1,
 h2,
 h3 {
-  color: #3d2f2c;
+  color: var(--dusk);
 }
 
 a:visited {
@@ -33,12 +33,12 @@ p {
 }
 
 input {
-  background-color: #ffffff8f;
+  background-color: var(--almost-white);
   border: 0;
-  border-bottom: 1px solid #3d2f2c;
+  border-bottom: 1px solid var(--dusk);
   font-style: italic;
   padding: 10px 5px;
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing);
   border-radius: 0;
 }
 
@@ -46,7 +46,7 @@ input:focus {
   outline: 0;
   background-color: #fff;
   padding-bottom: 9px;
-  border-bottom: 2px dotted #3d2f2c;
+  border-bottom: 2px dotted var(--dusk);
 }
 
 input:hover {
@@ -55,19 +55,19 @@ input:hover {
 
 button {
   padding: 10px;
-  border: 1px solid #3d2f2c;
-  background-color: #ffffff8f;
+  border: 1px solid var(--dusk);
+  background-color: var(--almost-white);
 }
 
 button:hover {
   padding: 10px;
-  background-color: #ffab8a;
+  background-color: var(--red-dawn);
 }
 
 button:focus {
   padding: 9px;
   border: 2px dotted #3d2f2c;
-  background-color: #ffab8a;
+  background-color: var(--red-dawn);
   outline: 0;
 }
 

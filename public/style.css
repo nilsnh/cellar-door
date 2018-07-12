@@ -1,4 +1,6 @@
+@import 'normalize.css';
 @import 'fonts.css';
+@import 'variables.css';
 @import 'elements.css';
 @import 'form.component.css';
 @import 'hcard.component.css';
@@ -6,17 +8,17 @@
 
 .c-display {
   font-weight: 400;
-  font-family: 'Pacifico', fantasy, cursive;
+  font-family: var(--title-font);
 }
 
 .c-wrapper {
-  padding-top: 24px;
+  padding-top: var(--spacing);
 }
 
 .c-notice {
   margin: 0;
-  padding: 24px;
-  background-color: #ffffff8f;
+  padding: var(--spacing);
+  background-color: var(--almost-white);
 }
 
 .c-authorize-buttons {
@@ -31,15 +33,15 @@
 }
 
 .u-margin-bottom {
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing);
 }
 
 .u-bg-light {
-  background-color: #ffecca;
+  background-color: var(--dawn);
 }
 
 .u-bg-dark {
-  background-color: #3d2f2c;
+  background-color: var(--dusk);
 }
 
 .u-clearfix:before,

@@ -1,0 +1,13 @@
+:root {
+  --title-font: 'Pacifico', cursive;
+  --main-font: 'Josefin Sans', sans-serif;
+
+  --spacing: 24px;
+  --spacing-small: 10px;
+  --spacing-tiny: 5px;
+
+  --almost-white: #ffffff8f;
+  --dawn: #ffecca;
+  --red-dawn: #ffab8a;
+  --dusk: #3d2f2c;
+}

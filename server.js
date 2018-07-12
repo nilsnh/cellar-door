@@ -56,13 +56,6 @@ const init = async () => {
     }
   })
 
-  await server.register({
-    plugin: require('hapi-require-https'),
-    options: {
-      proxy: process.env.NODE_ENV === 'test'
-    }
-  })
-
   // setup html templating
   await server.register(require('vision'))
   await server.register(require('inert'))

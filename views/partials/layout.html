@@ -6,6 +6,12 @@
     <title>Cellar Door</title>
     <link rel="stylesheet" href="/public/normalize.css">
     <link rel="stylesheet" href="/public/style.css">
+    <script>
+      // hack to redirect to https.
+      if (location.protocol != 'https:') {
+       location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+      }
+    </script>
   </head>
   <body>
     <main class="u-bg-light">{{> @partial-block }}</main>

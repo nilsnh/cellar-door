@@ -1,10 +1,11 @@
 import createStatefulUrl from './url.service'
 import test from 'ava'
 
-test('Test that we can build url', t => {
+test('building url with query params without falsy values', t => {
   const state = {
     client_id: 'something',
     someOtherValue: 'aValue',
+    falsyValue: '',
     password: 'asimplepassword'
   }
   t.is(

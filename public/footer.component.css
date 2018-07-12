@@ -1,6 +1,6 @@
 .c-footer {
   width: 100%;
-  color: #ffffff8f;
+  color: var(--blinding-dawn);
 }
 
 .c-footer__content {
@@ -9,11 +9,11 @@
 }
 
 .c-footer__content a {
-  color: #ffffff8f;
+  color: var(--blinding-dawn);
 }
 
 .c-footer__content a:hover {
-  color: #fff;
+  color: var(--white);
 }
 
 @media (min-width: 500px) {

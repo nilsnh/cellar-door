@@ -33,7 +33,7 @@ p {
 }
 
 input {
-  background-color: var(--almost-white);
+  background-color: var(--blinding-dawn);
   border: 0;
   border-bottom: 1px solid var(--dusk);
   font-style: italic;
@@ -56,7 +56,7 @@ input:hover {
 button {
   padding: 10px;
   border: 1px solid var(--dusk);
-  background-color: var(--almost-white);
+  background-color: var(--blinding-dawn);
 }
 
 button:hover {

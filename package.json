@@ -8,6 +8,7 @@
     "start": "node server.js",
     "dev": "NODE_ENV=test nodemon -w ./ server.js",
     "test": "ava",
+    "test:coverage": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov",
     "browser-sync": "browser-sync start --proxy localhost:3000 --port 3002 --files ./ --ignore node_modules"
   },
   "author": "Nils Norman Haukås",
@@ -36,6 +37,8 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "browser-sync": "^2.24.5",
-    "nodemon": "^1.17.5"
+    "codecov": "^3.0.4",
+    "nodemon": "^1.18.1",
+    "nyc": "^12.0.2"
   }
 }

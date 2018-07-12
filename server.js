@@ -26,9 +26,10 @@ const init = async () => {
     expiresIn: 1000 * 60 * 60 * 3 // three hours
   })
 
+  // make helper method available throughout
   server.method('createStatefulUrl', require('./src/url.service'))
 
-  // setup logging
+  // Setup logging
   await server.register({
     plugin: require('good'),
     options: {
@@ -84,33 +85,11 @@ const init = async () => {
     return h.continue
   })
 
+  // Shows setup screen, redirects to login or shows app to authorize.
   server.route({
     method: 'GET',
     path: '/',
-    handler: async (request, h) => {
-      if (
-        !process.env.USERNAME ||
-        !process.env.USER_PASSWORD ||
-        !process.env.IRON_SECRET
-      ) {
-        return h.view('setup')
-      }
-      if (!request.auth.isAuthenticated) {
-        return h.redirect(
-          request.server.methods.createStatefulUrl({
-            url: '/login',
-            state: request.query
-          })
-        )
-      }
-      const { client_id } = request.query
-      if (!client_id) {
-        return h.view('ready-to-authorize')
-      }
-      // try to get any hcard data about the service you are trying to login to.
-      const hcard = await require('./src/hcard.service')(client_id)
-      return h.view('authorize', { ...request.query, hcard })
-    }
+    handler: require('./src/authorization.handler').showAppToAuthorize
   })
 
   // exchange authorization code for token

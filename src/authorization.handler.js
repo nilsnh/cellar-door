@@ -1,6 +1,31 @@
 const Boom = require('boom')
 const uuidv4 = require('uuid/v4')
 
+const showAppToAuthorize = async (request, h) => {
+  if (
+    !process.env.USERNAME ||
+    !process.env.USER_PASSWORD ||
+    !process.env.IRON_SECRET
+  ) {
+    return h.view('setup')
+  }
+  if (!request.auth.isAuthenticated) {
+    return h.redirect(
+      request.server.methods.createStatefulUrl({
+        url: '/login',
+        state: request.query
+      })
+    )
+  }
+  const { client_id } = request.query
+  if (!client_id) {
+    return h.view('ready-to-authorize')
+  }
+  // try to get any hcard data about the service you are trying to login to.
+  const hcard = await require('./src/hcard.service')(client_id)
+  return h.view('authorize', { ...request.query, hcard })
+}
+
 const authorizeCreationOfAuthorizationCode = async (request, h) => {
   if (!request.auth.isAuthenticated) {
     return Boom.unauthorized()
@@ -41,5 +66,6 @@ const exchangeAuthorizationCodeForToken = async (request, h) => {
 
 module.exports = {
   authorizeCreationOfAuthorizationCode,
-  exchangeAuthorizationCodeForToken
+  exchangeAuthorizationCodeForToken,
+  showAppToAuthorize
 }

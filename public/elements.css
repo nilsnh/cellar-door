@@ -70,3 +70,8 @@ button:focus {
   background-color: #ffab8a;
   outline: 0;
 }
+
+/* Sensibly push down the footer*/
+main {
+  min-height: 70vh;
+}

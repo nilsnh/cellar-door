@@ -7,9 +7,13 @@
     <meta name="description" content="A personal authorization server implementing the IndiAuth federated login protocol.">
     <link rel="stylesheet" href="/public/style.css">
     <script src="/public/script.js" charset="utf-8"></script>
+    <script src="https://button.glitch.me/button.js"></script>
   </head>
   <body>
-    <main class="u-bg-light">{{> @partial-block }}</main>
+    <main class="u-bg-light">
+      <div class="glitchButton" style="position: absolute; top: 20px; right: 20px;"></div>
+      {{> @partial-block }}
+    </main>
     <footer class="c-footer u-bg-dark">
       <div class="c-footer__content"><p>
       <a href="https://github.com/nilsnh/cellar-door">Cellar Door</a>,

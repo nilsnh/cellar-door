@@ -92,6 +92,12 @@ const init = async () => {
     handler: require('./src/authorization.handler').showAppToAuthorize
   })
 
+  server.route({
+    method: 'GET',
+    path: '/favicon.ico',
+    handler: (request, h) => h.file('./public/favicon.ico')
+  })
+
   // exchange authorization code for token
   server.route({
     method: 'POST',

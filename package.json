@@ -9,7 +9,9 @@
     "dev": "NODE_ENV=test nodemon -w ./ server.js",
     "test": "ava",
     "test-coverage": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov",
-    "browser-sync": "browser-sync start --proxy localhost:3000 --port 3002 --files ./ --ignore node_modules"
+    "browser-sync": "browser-sync start --proxy localhost:3000 --port 3002 --files ./ --ignore node_modules",
+    "build-favicon": "icon-gen -i node_modules/octicons/build/svg/shield.svg -n ico=favicon -m ico -o ./public -r",
+    "post-install": "npm run build-favicon"
   },
   "author": "Nils Norman Haukås",
   "license": "AGPL-3.0-or-later",
@@ -22,9 +24,11 @@
     "good-squeeze": "^5.1.0",
     "handlebars": "^4.0.11",
     "hapi": "^17.5.2",
+    "icon-gen": "^1.2.1",
     "inert": "^5.1.0",
     "microformat-node": "^2.0.1",
     "mock-require": "^3.0.2",
+    "octicons": "^7.4.0",
     "query-string": "^6.1.0",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5",

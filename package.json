@@ -28,7 +28,7 @@
     "inert": "^5.1.0",
     "microformat-node": "^2.0.1",
     "mock-require": "^3.0.2",
-    "octicons": "^7.4.0",
+    "octicons": "^8.0.0",
     "query-string": "^6.1.0",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5",

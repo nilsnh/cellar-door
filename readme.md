@@ -1,6 +1,7 @@
 # Cellar door
 
 [![Build Status](https://travis-ci.org/nilsnh/cellar-door.svg?branch=master)](https://travis-ci.org/nilsnh/cellar-door) [![dependencies Status](https://david-dm.org/nilsnh/cellar-door/status.svg)](https://david-dm.org/nilsnh/cellar-door) [![codecov](https://codecov.io/gh/nilsnh/cellar-door/branch/master/graph/badge.svg)](https://codecov.io/gh/nilsnh/cellar-door)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 Login to services using your own website.
 

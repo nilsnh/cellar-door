@@ -24,16 +24,23 @@ const showAppToAuthorize = async (request, h) => {
   }
   // try to get any hcard data about the service you are trying to login to.
   const hcard = await hcardService(client_id)
-  return h.view('authorize', { ...request.query, hcard })
+  const context = { ...request.query, hcard }
+  console.log({ context })
+  return h.view('authorize', context)
 }
 
 const authorizeCreationOfAuthorizationCode = async (request, h) => {
   if (!request.auth.isAuthenticated) {
     return Boom.unauthorized()
   }
-  const { state, redirect_uri, client_id, me } = request.payload
+  const { state, redirect_uri, client_id, me, scope } = request.payload
   const code = uuidv4()
-  await request.server.app.tokenStore.set(code, { redirect_uri, client_id, me })
+  await request.server.app.tokenStore.set(code, {
+    redirect_uri,
+    client_id,
+    me,
+    scope
+  })
   return h.redirect(
     request.server.methods.createStatefulUrl({
       url: redirect_uri,

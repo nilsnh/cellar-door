@@ -77,6 +77,9 @@ const init = async () => {
   // Decorate all responses with additional security headers. Hardens usage of
   // javascript and iframes.
   server.ext('onPreResponse', (request, h) => {
+    if (!request.response.header) {
+      return h.continue
+    }
     request.response.header('X-FRAME-OPTIONS', 'deny')
     if (process.env.NODE_ENV !== 'test') {
       // CSP breaks browser-sync, so we ignore it for development
@@ -138,6 +141,13 @@ const init = async () => {
   })
 
   server.route({
+    method: 'POST',
+    path: '/login',
+    options: { auth: false },
+    handler: require('./src/login.handler')
+  })
+
+  server.route({
     method: 'GET',
     path: '/logout',
     options: { auth: false },
@@ -145,10 +155,17 @@ const init = async () => {
   })
 
   server.route({
-    method: 'POST',
-    path: '/login',
+    method: 'GET',
+    path: '/token',
     options: { auth: false },
-    handler: require('./src/login.handler')
+    handler: require('./src/token.handler').verifyToken
+  })
+
+  server.route({
+    method: 'POST',
+    path: '/token',
+    options: { auth: false },
+    handler: require('./src/token.handler').exchangeCodeForToken
   })
 
   server.route({

@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import test from 'ava'
-import initServer from './server'
+import initServer from '../server'
 import rp from 'request-promise-native'
 import queryString from 'query-string'
 
@@ -18,10 +18,12 @@ const loginTarget = {
 }
 
 let server = null
+let testUrl = null
 
 test.before(async t => {
-  process.env.PORT = 4000
+  process.env.PORT = 0
   server = await initServer()
+  testUrl = `http://localhost:${server.info.port}`
 })
 
 test.after(async t => {
@@ -34,42 +36,10 @@ const getLoggedInCookie = () =>
     value: user.username
   })
 
-test('visiting index unauthenticated redirects to /login', async t => {
-  const response = await rp({
-    method: 'GET',
-    uri: 'http://localhost:4000/',
-    simple: false,
-    resolveWithFullResponse: true
-  })
-  t.is(
-    response.toJSON().request.uri.pathname,
-    '/login',
-    'Expected to be redirected to /login'
-  )
-})
-
-test('login should authenticate and redirect', async t => {
-  const { username, password } = user
-  process.env.USERNAME = username
-  process.env.USER_PASSWORD = await bcrypt.hash(password, 1)
-  const response = await rp({
-    method: 'POST',
-    uri: 'http://localhost:4000/login',
-    formData: { username, password },
-    simple: false,
-    resolveWithFullResponse: true
-  })
-  t.is(
-    response.statusCode,
-    302,
-    'Expected to be redirected upon successful login'
-  )
-})
-
 test('user can be granted authorization code, and includes state in redirect.', async t => {
   const response = await rp({
     method: 'POST',
-    uri: 'http://localhost:4000/authorize',
+    uri: `${testUrl}/authorize`,
     formData: { ...loginTarget },
     simple: false,
     resolveWithFullResponse: true,
@@ -97,7 +67,7 @@ test('user can exchange authorization code for identification token.', async t =
   // get code
   const response = await rp({
     method: 'POST',
-    uri: 'http://localhost:4000/authorize',
+    uri: `${testUrl}/authorize`,
     formData: { ...loginTarget },
     simple: false,
     resolveWithFullResponse: true,
@@ -111,7 +81,7 @@ test('user can exchange authorization code for identification token.', async t =
   // exchange code
   const secondResponse = await rp({
     method: 'POST',
-    uri: 'http://localhost:4000/',
+    uri: `${testUrl}/`,
     formData: { code, redirect_uri, client_id },
     json: true,
     headers: {
@@ -121,41 +91,6 @@ test('user can exchange authorization code for identification token.', async t =
   t.deepEqual(
     {
       me: loginTarget.me
-    },
-    secondResponse
-  )
-})
-
-test.skip('user can exchange authorization code for access token.', async t => {
-  // get code
-  const response = await rp({
-    method: 'POST',
-    uri: 'http://localhost:4000/authorize',
-    formData: { ...loginTarget, ...{ scope: 'create update' } },
-    simple: false,
-    resolveWithFullResponse: true,
-    headers: {
-      Cookie: await getLoggedInCookie()
-    }
-  })
-  const { location } = response.toJSON().headers
-  const { code } = queryString.parse('?' + location.split('?')[1])
-  const { redirect_uri, client_id, me } = loginTarget
-  // exchange code
-  const secondResponse = await rp({
-    method: 'POST',
-    uri: 'http://localhost:4000/token',
-    formData: { code, redirect_uri, client_id, me },
-    json: true,
-    headers: {
-      Cookie: await getLoggedInCookie()
-    }
-  })
-  t.deepEqual(
-    {
-      access_token: 'XXXXXX',
-      scope: 'post',
-      me
     },
     secondResponse
   )

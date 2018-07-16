@@ -5,4 +5,5 @@ script: npm run test-coverage
 env:
   # Don't think about reusing this somewhere else, it's for testing.
   - IRON_SECRET="r2(@DwwVWciKUqKk?ceiXEU9rGGLjFdMJbEnywNr"
+  - JWT_SECRET="someotherNiftySecret"
 after_success: npx codecov

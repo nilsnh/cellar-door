@@ -77,6 +77,7 @@ const init = async () => {
   // Decorate all responses with additional security headers. Hardens usage of
   // javascript and iframes.
   server.ext('onPreResponse', (request, h) => {
+    // exception responses returned by Boom can't be manipulated, exit early.
     if (!request.response.header) {
       return h.continue
     }

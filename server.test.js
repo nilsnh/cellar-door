@@ -18,17 +18,21 @@ const loginTarget = {
 }
 
 let server = null
-let cookieJar = null
 
 test.before(async t => {
   process.env.PORT = 4000
   server = await initServer()
-  cookieJar = rp.jar()
 })
 
 test.after(async t => {
   await server.stop()
 })
+
+const getLoggedInCookie = () =>
+  server.states.format({
+    name: 'sid-indieauth',
+    value: user.username
+  })
 
 test('visiting index unauthenticated redirects to /login', async t => {
   const response = await rp({
@@ -44,7 +48,7 @@ test('visiting index unauthenticated redirects to /login', async t => {
   )
 })
 
-test.serial('login should authenticate and redirect', async t => {
+test('login should authenticate and redirect', async t => {
   const { username, password } = user
   process.env.USERNAME = username
   process.env.USER_PASSWORD = await bcrypt.hash(password, 1)
@@ -53,8 +57,7 @@ test.serial('login should authenticate and redirect', async t => {
     uri: 'http://localhost:4000/login',
     formData: { username, password },
     simple: false,
-    resolveWithFullResponse: true,
-    jar: cookieJar
+    resolveWithFullResponse: true
   })
   t.is(
     response.statusCode,
@@ -63,35 +66,34 @@ test.serial('login should authenticate and redirect', async t => {
   )
 })
 
-test.serial(
-  'user can be granted authorization code, and includes state in redirect.',
-  async t => {
-    const response = await rp({
-      method: 'POST',
-      uri: 'http://localhost:4000/authorize',
-      formData: { ...loginTarget },
-      simple: false,
-      resolveWithFullResponse: true,
-      jar: cookieJar
-    })
-    const { location } = response.toJSON().headers
-    const redirect = location.split('?')[0]
-    const { code, state } = queryString.parse('?' + location.split('?')[1])
-    t.is(
-      redirect,
-      loginTarget.redirect_uri,
-      'expected to be redirected correctly'
-    )
-    t.truthy(code, 'expected query param code to be included')
-    t.is(
-      state,
-      loginTarget.state,
-      'state should have been included in the redirect'
-    )
-  }
-)
+test('user can be granted authorization code, and includes state in redirect.', async t => {
+  const response = await rp({
+    method: 'POST',
+    uri: 'http://localhost:4000/authorize',
+    formData: { ...loginTarget },
+    simple: false,
+    resolveWithFullResponse: true,
+    headers: {
+      Cookie: await getLoggedInCookie()
+    }
+  })
+  const { location } = response.toJSON().headers
+  const redirect = location.split('?')[0]
+  const { code, state } = queryString.parse('?' + location.split('?')[1])
+  t.is(
+    redirect,
+    loginTarget.redirect_uri,
+    'expected to be redirected correctly'
+  )
+  t.truthy(code, 'expected query param code to be included')
+  t.is(
+    state,
+    loginTarget.state,
+    'state should have been included in the redirect'
+  )
+})
 
-test.serial('user can exchange authorization code for token.', async t => {
+test('user can exchange authorization code for identification token.', async t => {
   // get code
   const response = await rp({
     method: 'POST',
@@ -99,7 +101,9 @@ test.serial('user can exchange authorization code for token.', async t => {
     formData: { ...loginTarget },
     simple: false,
     resolveWithFullResponse: true,
-    jar: cookieJar
+    headers: {
+      Cookie: await getLoggedInCookie()
+    }
   })
   const { location } = response.toJSON().headers
   const { code } = queryString.parse('?' + location.split('?')[1])
@@ -110,11 +114,48 @@ test.serial('user can exchange authorization code for token.', async t => {
     uri: 'http://localhost:4000/',
     formData: { code, redirect_uri, client_id },
     json: true,
-    jar: cookieJar
+    headers: {
+      Cookie: await getLoggedInCookie()
+    }
   })
   t.deepEqual(
     {
       me: loginTarget.me
+    },
+    secondResponse
+  )
+})
+
+test.skip('user can exchange authorization code for access token.', async t => {
+  // get code
+  const response = await rp({
+    method: 'POST',
+    uri: 'http://localhost:4000/authorize',
+    formData: { ...loginTarget, ...{ scope: 'create update' } },
+    simple: false,
+    resolveWithFullResponse: true,
+    headers: {
+      Cookie: await getLoggedInCookie()
+    }
+  })
+  const { location } = response.toJSON().headers
+  const { code } = queryString.parse('?' + location.split('?')[1])
+  const { redirect_uri, client_id, me } = loginTarget
+  // exchange code
+  const secondResponse = await rp({
+    method: 'POST',
+    uri: 'http://localhost:4000/token',
+    formData: { code, redirect_uri, client_id, me },
+    json: true,
+    headers: {
+      Cookie: await getLoggedInCookie()
+    }
+  })
+  t.deepEqual(
+    {
+      access_token: 'XXXXXX',
+      scope: 'post',
+      me
     },
     secondResponse
   )

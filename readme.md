@@ -11,13 +11,16 @@ Features:
 
 - IndieAuth support.
 - [h-card](https://indieweb.org/h-card) support.
+- [Token endpoint support](https://indieweb.org/token-endpoint).
 
 ## Deploy your own authorization server using glitch.com
 
 1.  [Remix my Glitch app](https://bit.ly/2zvqIvo).
 2.  Complete the .env file configuration.
-3.  Add `<link rel="authorization_endpoint" href="https://your-glitch-app.com">` within the `<head></head>` portion of your personal site's html. This enables sites to discover the authorization endpoint.
-4.  Test logging into a site, for example [indielogin.com](https://indielogin.com)
+3.  Within the `<head></head>` portion of your personal site's html:
+    - Add `<link rel="authorization_endpoint" href="https://your-glitch-app.com">` to make authorization endpoint discoverable.
+    - Add `<link rel="token_endpoint" href="https://your-glitch-app.com/token">` to make token endpoint discoverable.
+4.  Test logging into a site, for example [indielogin.com](https://indielogin.com).
 
 ## Development
 

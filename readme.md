@@ -11,7 +11,7 @@ Features:
 
 - IndieAuth support.
 - [h-card](https://indieweb.org/h-card) support.
-- [Token endpoint support](https://indieweb.org/token-endpoint).
+- [Token endpoint support](https://indieweb.org/token-endpoint) using [JSON Web Tokens](https://jwt.io).
 
 ## Deploy your own authorization server using glitch.com
 

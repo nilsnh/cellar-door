@@ -24,6 +24,20 @@
     <input type="hidden" name="client_id" value="{{client_id}}">
     <input type="hidden" name="redirect_uri" value="{{redirect_uri}}">
     <input type="hidden" name="state" value="{{state}}">
+    <input type="hidden" name="scope" value="{{scope}}">
+
+    {{#if scopeAsList.length }}
+      <p>Also, the site asked for permission to perform actions on your behalf.</p>
+      <p>Permissions requested (scope):</p>
+      <p>
+      <ul>
+      {{#each scopeAsList}}
+        <li>{{scope}}</li>
+      {{/each}}
+      </ul>
+      </p>
+    {{/if}}
+
     <div class="c-authorize-buttons u-margin-bottom">
       <a href="/logout">Logout</a>
       <button type="submit">Authorize site</button>

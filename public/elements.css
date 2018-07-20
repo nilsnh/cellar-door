@@ -32,6 +32,10 @@ p {
   line-height: 1.6;
 }
 
+li {
+  line-height: 1.6;
+}
+
 input {
   background-color: var(--blinding-dawn);
   border: 0;

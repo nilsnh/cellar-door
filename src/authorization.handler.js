@@ -24,7 +24,9 @@ const showAppToAuthorize = async (request, h) => {
   }
   // try to get any hcard data about the service you are trying to login to.
   const hcard = await hcardService(client_id)
-  const context = { ...request.query, hcard }
+  const { scope: scopeString = '' } = request.query
+  const scopeAsList = scopeString.split(' ').map(scope => ({ scope }))
+  const context = { ...request.query, hcard, scopeAsList }
   console.log({ context })
   return h.view('authorize', context)
 }

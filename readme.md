@@ -21,7 +21,7 @@ Features:
     - Add `<link rel="authorization_endpoint" href="https://your-glitch-app.com">` to make authorization endpoint discoverable.
     - Add `<link rel="token_endpoint" href="https://your-glitch-app.com/token">` to make token endpoint discoverable.
 4.  Test logging into a site, for example [indielogin.com](https://indielogin.com).
-    - And/or [manually test the access token flow](https://indieweb.org/obtaining-an-access-token#Manually_obtaining_your_access_token).
+    - And if you want, manually test the access token flow using [this tool](https://gimme-a-token.5eb.nl/) by [Sebastiaan Andeweg](https://indieweb.org/User:Seblog.nl).
 
 ## Development
 

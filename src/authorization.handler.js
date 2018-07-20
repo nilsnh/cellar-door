@@ -6,7 +6,8 @@ const showAppToAuthorize = async (request, h) => {
   if (
     !process.env.USERNAME ||
     !process.env.USER_PASSWORD ||
-    !process.env.IRON_SECRET
+    !process.env.IRON_SECRET ||
+    !process.env.JWT_SECRET
   ) {
     return h.view('setup')
   }
@@ -24,11 +25,10 @@ const showAppToAuthorize = async (request, h) => {
   }
   // try to get any hcard data about the service you are trying to login to.
   const hcard = await hcardService(client_id)
-  const { scope: scopeString = '' } = request.query
-  const scopeAsList = scopeString.split(' ').map(scope => ({ scope }))
-  const context = { ...request.query, hcard, scopeAsList }
-  console.log({ context })
-  return h.view('authorize', context)
+  // parse space-separated scope into array to make it edible for handlebarsjs.
+  const { scope = '' } = request.query
+  const scopeAsList = scope.split(' ').map(scope => ({ scope }))
+  return h.view('authorize', { ...request.query, hcard, scopeAsList })
 }
 
 const authorizeCreationOfAuthorizationCode = async (request, h) => {

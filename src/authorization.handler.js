@@ -27,7 +27,7 @@ const showAppToAuthorize = async (request, h) => {
   const hcard = await hcardService(client_id)
   // parse space-separated scope into array to make it edible for handlebarsjs.
   const { scope = '' } = request.query
-  const scopeAsList = scope.split(' ').map(scope => ({ scope }))
+  const scopeAsList = scope ? scope.split(' ').map(scope => ({ scope })) : []
   return h.view('authorize', { ...request.query, hcard, scopeAsList })
 }
 

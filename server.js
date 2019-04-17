@@ -81,6 +81,8 @@ const init = async () => {
     if (!request.response.header) {
       return h.continue
     }
+    // Prevent site from being iframed since that might lead people to sniff
+    // out passwords
     request.response.header('X-FRAME-OPTIONS', 'deny')
     if (process.env.NODE_ENV !== 'test') {
       // CSP breaks browser-sync, so we ignore it for development
